@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Design System — MiniMax-inspired
+   Reference: docs/design/design.md
+   ============================================================ */
+
+:root {
+  /* Brand Colors */
+  --brand-blue: #1456f0;
+  --brand-sky: #3daeff;
+  --brand-pink: #ea5ec1;
+
+  /* Blue Scale */
+  --primary-200: #bfdbfe;
+  --primary-light: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --brand-deep: #17437d;
+
+  /* Text Colors */
+  --text-primary: #222222;
+  --text-dark: #18181b;
+  --text-charcoal: #181e25;
+  --text-secondary: #45515e;
+  --text-muted: #8e8e93;
+  --text-helper: #5f5f5f;
+
+  /* Surfaces */
+  --bg-white: #ffffff;
+  --bg-light: #f0f0f0;
+  --border-light: #f2f3f5;
+  --border-gray: #e5e7eb;
+
+  /* Shadows */
+  --shadow-standard: rgba(0, 0, 0, 0.08) 0px 4px 6px;
+  --shadow-ambient: rgba(0, 0, 0, 0.08) 0px 0px 22.576px;
+  --shadow-brand-glow: rgba(44, 30, 116, 0.16) 0px 0px 15px;
+  --shadow-elevated: rgba(36, 36, 36, 0.08) 0px 12px 16px -4px;
+
+  /* Border Radius */
+  --radius-pill: 9999px;
+  --radius-card-lg: 24px;
+  --radius-card-md: 16px;
+  --radius-card-sm: 13px;
+  --radius-button: 8px;
+  --radius-tag: 30px;
+
+  /* CopilotKit theme overrides */
+  --copilot-kit-background-color: #fafaf9;
+  --copilot-kit-primary-color: #1456f0;
+  --copilot-kit-response-button-background-color: #f0f0f0;
+  --copilot-kit-response-button-color: #18181b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: var(--bg-white);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Demo pages fill the viewport */
+.demo-page {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-brand-glow);
+}
