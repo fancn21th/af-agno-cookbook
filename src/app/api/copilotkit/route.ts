@@ -9,30 +9,26 @@ import { AbstractAgent, HttpAgent } from "@ag-ui/client";
 // Python agent server runs on port 8000
 const AGENT_URL = process.env.AGENT_URL || "http://localhost:8000";
 
-function createAgent() {
-  return new HttpAgent({ url: `${AGENT_URL}/agui` });
-}
-
-// Register every agent name used by demo pages
-const agentNames = [
-  "agentic_chat",
-  "tool-rendering",
-  "human_in_the_loop",
-  "gen-ui-tool-based",
-  "gen-ui-agent",
-  "shared-state-read",
-  "shared-state-write",
-  "shared-state-streaming",
-  "subagents",
-  "knowledge-rag",
-  "workflows",
-];
+// Map each agent name to its dedicated AGUI prefix on the Python server
+const agentPrefixMap: Record<string, string> = {
+  agentic_chat: "/agui",
+  "tool-rendering": "/tool-rendering/agui",
+  human_in_the_loop: "/hitl/agui",
+  "gen-ui-tool-based": "/gen-ui/agui",
+  "gen-ui-agent": "/gen-ui-agent/agui",
+  "shared-state-read": "/shared-state-read/agui",
+  "shared-state-write": "/shared-state-write/agui",
+  "shared-state-streaming": "/shared-state-streaming/agui",
+  subagents: "/subagents/agui",
+  "knowledge-rag": "/knowledge-rag/agui",
+  workflows: "/workflows/agui",
+};
 
 const agents: Record<string, AbstractAgent> = {};
-for (const name of agentNames) {
-  agents[name] = createAgent();
+for (const [name, path] of Object.entries(agentPrefixMap)) {
+  agents[name] = new HttpAgent({ url: `${AGENT_URL}${path}` });
 }
-agents["default"] = createAgent();
+agents["default"] = new HttpAgent({ url: `${AGENT_URL}/agui` });
 
 export const POST = async (req: NextRequest) => {
   try {

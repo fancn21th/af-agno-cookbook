@@ -43,11 +43,23 @@ all_agents = [
     workflow_agent,
 ]
 
-# AGUI interface uses the first agent by default; all agents are accessible
-# via their names through the same /agui endpoint
+# Each agent gets its own AGUI interface with a unique prefix,
+# since AGUI binds to a single agent per instance.
 agent_os = AgentOS(
     agents=all_agents,
-    interfaces=[AGUI(agent=agentic_chat_agent)],
+    interfaces=[
+        AGUI(agent=agentic_chat_agent),
+        AGUI(agent=tool_rendering_agent, prefix="/tool-rendering"),
+        AGUI(agent=hitl_agent, prefix="/hitl"),
+        AGUI(agent=gen_ui_agent, prefix="/gen-ui"),
+        AGUI(agent=gen_ui_a2ui_agent, prefix="/gen-ui-agent"),
+        AGUI(agent=shared_state_agent, prefix="/shared-state-read"),
+        AGUI(agent=shared_state_write_agent, prefix="/shared-state-write"),
+        AGUI(agent=shared_state_streaming_agent, prefix="/shared-state-streaming"),
+        AGUI(agent=subagents_agent, prefix="/subagents"),
+        AGUI(agent=knowledge_agent, prefix="/knowledge-rag"),
+        AGUI(agent=workflow_agent, prefix="/workflows"),
+    ],
 )
 app = agent_os.get_app()
 
